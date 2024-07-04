@@ -4,10 +4,13 @@ public class Boss extends Enemy {
     }
 
     @Override
-    public void attackHero(Hero hero) {
-        int damage = getAttack() * 2 - hero.defense;
-        damage = damage < 0 ? 0 : damage;
-        hero.health -= damage;
-        System.out.println(getName() + " uses a powerful attack on " + hero.name + " for " + damage + " damage.");
+    public void attack(Hero hero) {
+        super.attack(hero);
+        hero.addStatusEffect(new StatusEffect("Poison", 3, 5, false));
+    }
+
+    @Override
+    public int getXpReward() {
+        return 200;
     }
 }

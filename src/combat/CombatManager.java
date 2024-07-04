@@ -8,20 +8,22 @@ public class CombatManager {
     }
 
     public void startCombat() {
-        while (hero.health > 0 && enemy.getHealth() > 0) {
-            hero.useSkill(enemy);
-            if (enemy.getHealth() <= 0) {
-                hero.gainXp(50);
-                break;
+        while (hero.getHealth() > 0 && enemy.getHealth() > 0) {
+            if (!hero.isStunned()) {
+                hero.applyStatusEffects();
+                hero.useSkill(enemy);
+            } else {
+                hero.setStunned(false);
             }
-            enemy.attackHero(hero);
-            if (hero.health <= 0) {
-                System.out.println("Hero is defeated!");
-                break;
+            if (enemy.getHealth() > 0) {
+                enemy.attack(hero);
             }
         }
-        if (hero.health > 0) {
-            System.out.println("Enemy is defeated!");
+        if (hero.getHealth() <= 0) {
+            System.out.println("Hero has been defeated!");
+        } else {
+            System.out.println("Enemy has been defeated!");
+            hero.gainXp(enemy.getXpReward());
         }
     }
 }

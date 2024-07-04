@@ -1,10 +1,8 @@
-import java.util.Random;
-
-public class Enemy {
-    private String name;
-    private int health;
-    private int attack;
-    private int defense;
+public abstract class Enemy {
+    protected String name;
+    protected int health;
+    protected int attack;
+    protected int defense;
 
     public Enemy(String name, int health, int attack, int defense) {
         this.name = name;
@@ -13,23 +11,20 @@ public class Enemy {
         this.defense = defense;
     }
 
-    public void takeDamage(int damage) {
-        health -= damage;
+    public void attack(Hero hero) {
+        hero.takeDamage(attack - hero.defense);
     }
 
     public int getHealth() {
         return health;
     }
 
-    public int getAttack() {
-        return attack;
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) {
+            health = 0;
+        }
     }
 
-    public void attackHero(Hero hero) {
-        Random random = new Random();
-        int damage = attack - hero.defense;
-        damage = damage < 0 ? 0 : damage;
-        hero.health -= damage;
-        System.out.println(name + " attacks " + hero.name + " for " + damage + " damage.");
-    }
+    public abstract int getXpReward();
 }
