@@ -1,9 +1,15 @@
+package characters;
+
 public class Archer extends Hero {
+    private static final int BASE_HEALTH = 90;
+    private static final int BASE_ATTACK = 15;
+    private static final int BASE_DEFENSE = 8;
+
     public Archer(String name, int level) {
-        super(name, 90 + level * 9, 15 + level * 4, 8 + level * 2, level);
+        super(name, BASE_HEALTH + level * 9, BASE_ATTACK + level * 4, BASE_DEFENSE + level * 2, level);
     }
 
     public void useSkill(Enemy enemy) {
-        enemy.takeDamage(attack * 2);
+        enemy.takeDamage(getAttack() * 2);
     }
 }

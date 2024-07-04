@@ -1,9 +1,15 @@
+package characters;
+
 public class Mage extends Hero {
+    private static final int BASE_HEALTH = 80;
+    private static final int BASE_ATTACK = 25;
+    private static final int BASE_DEFENSE = 5;
+
     public Mage(String name, int level) {
-        super(name, 80 + level * 8, 25 + level * 6, 5 + level * 1, level);
+        super(name, BASE_HEALTH + level * 8, BASE_ATTACK + level * 6, BASE_DEFENSE + level * 1, level);
     }
 
     public void useSkill(Enemy enemy) {
-        enemy.takeDamage(attack * 3);
+        enemy.takeDamage(getAttack() * 3);
     }
 }
