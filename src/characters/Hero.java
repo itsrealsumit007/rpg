@@ -41,4 +41,8 @@ public abstract class Hero {
     public void addItem(Item item) {
         inventory.add(item);
     }
+
+    public int getHealth() {
+        return health;
+    }
 }

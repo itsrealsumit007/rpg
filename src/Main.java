@@ -6,7 +6,11 @@ public class Main {
             public void run() {
                 Hero hero = new Warrior("Aragon", 1);
                 GameUI gameUI = new GameUI(hero);
-                new MainMenu(gameUI).setVisible(true);
+                JFrame frame = new JFrame("Heroes of Java");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(800, 600);
+                frame.add(gameUI);
+                frame.setVisible(true);
             }
         });
     }
