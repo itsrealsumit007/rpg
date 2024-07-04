@@ -4,7 +4,9 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                Hero hero = new Warrior("Aragon", 1);
+                GameUI gameUI = new GameUI(hero);
+                new MainMenu(gameUI).setVisible(true);
             }
         });
     }
