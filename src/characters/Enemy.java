@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Enemy {
     private String name;
     private int health;
@@ -21,5 +23,13 @@ public class Enemy {
 
     public int getAttack() {
         return attack;
+    }
+
+    public void attackHero(Hero hero) {
+        Random random = new Random();
+        int damage = attack - hero.defense;
+        damage = damage < 0 ? 0 : damage;
+        hero.health -= damage;
+        System.out.println(name + " attacks " + hero.name + " for " + damage + " damage.");
     }
 }

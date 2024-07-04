@@ -14,11 +14,13 @@ public class CombatManager {
                 hero.gainXp(50);
                 break;
             }
-            hero.health -= enemy.getAttack() - hero.defense;
+            enemy.attackHero(hero);
+            if (hero.health <= 0) {
+                System.out.println("Hero is defeated!");
+                break;
+            }
         }
-        if (hero.health <= 0) {
-            System.out.println("Hero is defeated!");
-        } else {
+        if (hero.health > 0) {
             System.out.println("Enemy is defeated!");
         }
     }
