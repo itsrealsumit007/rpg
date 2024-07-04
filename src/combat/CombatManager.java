@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class CombatManager {
     private Hero hero;
     private Enemy enemy;
@@ -10,13 +8,13 @@ public class CombatManager {
     }
 
     public void startCombat() {
-        Random random = new Random();
         while (hero.health > 0 && enemy.getHealth() > 0) {
-            if (random.nextBoolean()) {
-                hero.useSkill(enemy);
-            } else {
-                hero.health -= enemy.getAttack() - hero.defense;
+            hero.useSkill(enemy);
+            if (enemy.getHealth() <= 0) {
+                hero.gainXp(50);
+                break;
             }
+            hero.health -= enemy.getAttack() - hero.defense;
         }
         if (hero.health <= 0) {
             System.out.println("Hero is defeated!");
@@ -25,4 +23,3 @@ public class CombatManager {
         }
     }
 }
-
