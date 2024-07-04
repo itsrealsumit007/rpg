@@ -1,14 +1,17 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Hero {
+public abstract class Hero implements Serializable {
     protected String name;
     protected int health;
     protected int attack;
     protected int defense;
     protected int level;
     protected int xp;
+    protected boolean stunned;
     protected List<Item> inventory;
+    protected List<StatusEffect> statusEffects;
 
     public Hero(String name, int health, int attack, int defense, int level) {
         this.name = name;
@@ -17,7 +20,9 @@ public abstract class Hero {
         this.defense = defense;
         this.level = level;
         this.xp = 0;
+        this.stunned = false;
         this.inventory = new ArrayList<>();
+        this.statusEffects = new ArrayList<>();
     }
 
     public abstract void useSkill(Enemy enemy);
@@ -42,7 +47,33 @@ public abstract class Hero {
         inventory.add(item);
     }
 
+    public void addStatusEffect(StatusEffect effect) {
+        statusEffects.add(effect);
+    }
+
+    public void applyStatusEffects() {
+        for (StatusEffect effect : statusEffects) {
+            effect.applyEffect(this);
+        }
+        statusEffects.removeIf(effect -> effect.getDuration() <= 0);
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) {
+            health = 0;
+        }
+    }
+
     public int getHealth() {
         return health;
+    }
+
+    public boolean isStunned() {
+        return stunned;
+    }
+
+    public void setStunned(boolean stunned) {
+        this.stunned = stunned;
     }
 }
