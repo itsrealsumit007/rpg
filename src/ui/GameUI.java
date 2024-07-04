@@ -47,6 +47,25 @@ public class GameUI extends JPanel {
         });
         buttonsPanel.add(combatButton);
 
+        JButton saveButton = new JButton("Save Game");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SaveLoadManager.saveGame(hero, "savegame.dat");
+            }
+        });
+        buttonsPanel.add(saveButton);
+
+        JButton loadButton = new JButton("Load Game");
+        loadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                hero = SaveLoadManager.loadGame("savegame.dat");
+                if (hero != null) {
+                    updateUI();
+                }
+            }
+        });
+        buttonsPanel.add(loadButton);
+
         add(heroPanel, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
 
