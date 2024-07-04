@@ -12,6 +12,7 @@ public abstract class Hero implements Serializable {
     protected boolean stunned;
     protected List<Item> inventory;
     protected List<StatusEffect> statusEffects;
+    private AchievementManager achievementManager;
 
     public Hero(String name, int health, int attack, int defense, int level) {
         this.name = name;
@@ -23,6 +24,7 @@ public abstract class Hero implements Serializable {
         this.stunned = false;
         this.inventory = new ArrayList<>();
         this.statusEffects = new ArrayList<>();
+        this.achievementManager = new AchievementManager();
     }
 
     public abstract void useSkill(Enemy enemy);
@@ -40,6 +42,7 @@ public abstract class Hero implements Serializable {
         attack += 5;
         defense += 2;
         xp = 0;
+        achievementManager.checkAchievements(this);
         System.out.println(name + " leveled up to level " + level + "!");
     }
 
@@ -75,5 +78,9 @@ public abstract class Hero implements Serializable {
 
     public void setStunned(boolean stunned) {
         this.stunned = stunned;
+    }
+
+    public AchievementManager getAchievementManager() {
+        return achievementManager;
     }
 }
