@@ -2,19 +2,16 @@ import java.io.*;
 
 public class SaveLoadManager {
     public static void saveGame(Hero hero, String filename) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
-            out.writeObject(hero);
-            System.out.println("Game saved successfully.");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(hero);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static Hero loadGame(String filename) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
-            Hero hero = (Hero) in.readObject();
-            System.out.println("Game loaded successfully.");
-            return hero;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            return (Hero) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;

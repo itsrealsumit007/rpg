@@ -5,56 +5,50 @@ import java.awt.event.ActionListener;
 
 public class CharacterCustomizationUI extends JPanel {
     private JTextField nameField;
-    private JComboBox<String> classComboBox;
-    private JButton createButton;
-    private Hero hero;
+    private JComboBox<String> classDropdown;
+    private JButton confirmButton;
 
     public CharacterCustomizationUI() {
         setLayout(new GridLayout(3, 2));
 
-        JLabel nameLabel = new JLabel("Hero Name:");
+        add(new JLabel("Name:"));
         nameField = new JTextField();
-        add(nameLabel);
         add(nameField);
 
-        JLabel classLabel = new JLabel("Hero Class:");
-        String[] classes = {"Warrior", "Mage", "Archer"};
-        classComboBox = new JComboBox<>(classes);
-        add(classLabel);
-        add(classComboBox);
+        add(new JLabel("Class:"));
+        classDropdown = new JComboBox<>(new String[] { "Warrior", "Mage", "Archer" });
+        add(classDropdown);
 
-        createButton = new JButton("Create Hero");
-        createButton.addActionListener(new ActionListener() {
+        confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                createHero();
+                String name = nameField.getText();
+                String heroClass = (String) classDropdown.getSelectedItem();
+                Hero hero = createHero(name, heroClass);
+                launchGame(hero);
             }
         });
-        add(new JLabel());
-        add(createButton);
+        add(confirmButton);
     }
 
-    private void createHero() {
-        String name = nameField.getText();
-        String selectedClass = (String) classComboBox.getSelectedItem();
-
-        switch (selectedClass) {
+    private Hero createHero(String name, String heroClass) {
+        switch (heroClass) {
             case "Warrior":
-                hero = new Warrior(name, 1);
-                break;
+                return new Warrior(name, 100, 20, 10, 1);
             case "Mage":
-                hero = new Mage(name, 1);
-                break;
+                return new Mage(name, 80, 30, 5, 1);
             case "Archer":
-                hero = new Archer(name, 1);
-                break;
+                return new Archer(name, 90, 25, 7, 1);
+            default:
+                throw new IllegalArgumentException("Unknown class: " + heroClass);
         }
+    }
 
+    private void launchGame(Hero hero) {
         JFrame gameFrame = new JFrame("Heroes of Java");
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameFrame.setSize(800, 600);
         gameFrame.add(new GameUI(hero));
         gameFrame.setVisible(true);
-
-        SwingUtilities.getWindowAncestor(this).dispose();
     }
 }
