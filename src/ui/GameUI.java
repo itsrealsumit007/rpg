@@ -23,7 +23,7 @@ public class GameUI extends JPanel {
 
         JPanel heroPanel = new JPanel();
         heroPanel.setLayout(new BoxLayout(heroPanel, BoxLayout.Y_AXIS));
-        JLabel heroLabel = new JLabel("Hero: " + hero.name + " Level: " + hero.level);
+        JLabel heroLabel = new JLabel("Hero: " + hero.getName() + " Level: " + hero.getLevel());
         heroPanel.add(heroLabel);
 
         JPanel buttonsPanel = new JPanel();
@@ -92,7 +92,6 @@ public class GameUI extends JPanel {
         questsPanel.setLayout(new BoxLayout(questsPanel, BoxLayout.Y_AXIS));
         for (Quest quest : questManager.getQuests()) {
             JLabel questLabel = new JLabel(quest.getName() + ": " + quest.getDescription());
-            questsPanel.add(questLabel
             questsPanel.add(questLabel);
         }
         add(questsPanel, BorderLayout.CENTER);
