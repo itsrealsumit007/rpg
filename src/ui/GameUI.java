@@ -66,6 +66,14 @@ public class GameUI extends JPanel {
         });
         buttonsPanel.add(loadButton);
 
+        JButton mapButton = new JButton("World Map");
+        mapButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showMap();
+            }
+        });
+        buttonsPanel.add(mapButton);
+
         add(heroPanel, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
 
@@ -82,6 +90,22 @@ public class GameUI extends JPanel {
             questsPanel.add(questLabel);
         }
         add(questsPanel, BorderLayout.CENTER);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                updateUI();
+            }
+        });
+        add(backButton, BorderLayout.SOUTH);
+
+        revalidate();
+        repaint();
+    }
+
+    private void showMap() {
+        removeAll();
+        add(new MapUI(), BorderLayout.CENTER);
 
         JButton backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
