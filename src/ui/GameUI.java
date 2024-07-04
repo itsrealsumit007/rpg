@@ -50,7 +50,7 @@ public class GameUI extends JPanel {
         JButton saveButton = new JButton("Save Game");
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SaveLoadManager.saveGame(hero, "savegame.dat");
+                showSaveGameUI();
             }
         });
         buttonsPanel.add(saveButton);
@@ -58,10 +58,7 @@ public class GameUI extends JPanel {
         JButton loadButton = new JButton("Load Game");
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                hero = SaveLoadManager.loadGame("savegame.dat");
-                if (hero != null) {
-                    updateUI();
-                }
+                showLoadGameUI();
             }
         });
         buttonsPanel.add(loadButton);
@@ -117,5 +114,21 @@ public class GameUI extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    private void showSaveGameUI() {
+        JFrame saveFrame = new JFrame("Save Game");
+        saveFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        saveFrame.setSize(300, 200);
+        saveFrame.add(new SaveGameUI(hero));
+        saveFrame.setVisible(true);
+    }
+
+    private void showLoadGameUI() {
+        JFrame loadFrame = new JFrame("Load Game");
+        loadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        loadFrame.setSize(300, 200);
+        loadFrame.add(new LoadGameUI(loadFrame));
+        loadFrame.setVisible(true);
     }
 }
