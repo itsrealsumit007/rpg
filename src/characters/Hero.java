@@ -34,6 +34,7 @@ public abstract class Hero implements Serializable {
         if (xp >= level * 100) {
             levelUp();
         }
+        achievementManager.checkAchievements(this);
     }
 
     public void levelUp() {
@@ -42,12 +43,12 @@ public abstract class Hero implements Serializable {
         attack += 5;
         defense += 2;
         xp = 0;
-        achievementManager.checkAchievements(this);
         System.out.println(name + " leveled up to level " + level + "!");
     }
 
     public void addItem(Item item) {
         inventory.add(item);
+        achievementManager.checkAchievements(this);
     }
 
     public void addStatusEffect(StatusEffect effect) {

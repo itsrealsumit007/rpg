@@ -71,6 +71,14 @@ public class GameUI extends JPanel {
         });
         buttonsPanel.add(mapButton);
 
+        JButton achievementsButton = new JButton("Achievements");
+        achievementsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                showAchievementsUI();
+            }
+        });
+        buttonsPanel.add(achievementsButton);
+
         add(heroPanel, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
 
@@ -84,6 +92,7 @@ public class GameUI extends JPanel {
         questsPanel.setLayout(new BoxLayout(questsPanel, BoxLayout.Y_AXIS));
         for (Quest quest : questManager.getQuests()) {
             JLabel questLabel = new JLabel(quest.getName() + ": " + quest.getDescription());
+            questsPanel.add(questLabel
             questsPanel.add(questLabel);
         }
         add(questsPanel, BorderLayout.CENTER);
@@ -130,5 +139,13 @@ public class GameUI extends JPanel {
         loadFrame.setSize(300, 200);
         loadFrame.add(new LoadGameUI(loadFrame));
         loadFrame.setVisible(true);
+    }
+
+    private void showAchievementsUI() {
+        JFrame achievementsFrame = new JFrame("Achievements");
+        achievementsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        achievementsFrame.setSize(300, 200);
+        achievementsFrame.add(new AchievementsUI(hero));
+        achievementsFrame.setVisible(true);
     }
 }
